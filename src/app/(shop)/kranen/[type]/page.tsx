@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function ProductBrowser({ type }: { type: string }) {
   const productType = PRODUCT_TYPE_SLUGS[type];
-  const products = await getProductsByType(productType);
+  const products = await getProductsByType(productType).catch(() => []);
   return <FilterableProductBrowser products={products} />;
 }
 

@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { handle } = await params;
-  const product = await getProduct(handle);
+  const product = await getProduct(handle).catch(() => null);
   if (!product) return {};
 
   return {
@@ -39,8 +39,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductPage({ params }: Props) {
   const { handle } = await params;
   const [product, allProducts] = await Promise.all([
-    getProduct(handle),
-    getAllProducts(),
+    getProduct(handle).catch(() => null),
+    getAllProducts().catch(() => []),
   ]);
 
   if (!product) notFound();

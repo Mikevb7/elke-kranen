@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 async function SerieProducts({ serieUpper }: { serieUpper: string }) {
-  const products = await getAllProducts();
+  const products = await getAllProducts().catch(() => []);
   const filtered = products.filter((p) => p.serie?.toUpperCase() === serieUpper);
   return <ProductGrid products={filtered} />;
 }

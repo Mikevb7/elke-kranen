@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 async function ProductBrowser() {
-  const products = await getAllProducts();
+  const products = await getAllProducts().catch(() => []);
   return <FilterableProductBrowser products={products} />;
 }
 
