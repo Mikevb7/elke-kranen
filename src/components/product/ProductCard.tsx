@@ -20,11 +20,17 @@ function FinishSwatch({ finish, size = 'sm' }: { finish: string; size?: 'sm' | '
     <span
       title={finish}
       className={cn(
-        'rounded-full border border-white ring-1 ring-[#E7E5E1] inline-block shrink-0',
+        'relative rounded-full border border-white ring-1 ring-[#E7E5E1] inline-block shrink-0 overflow-hidden',
         size === 'sm' ? 'h-3.5 w-3.5' : 'h-5 w-5'
       )}
       style={isGradient ? { background: hex } : { backgroundColor: hex ?? '#ccc' }}
-    />
+    >
+      {/* Mini gloss */}
+      <span
+        className="pointer-events-none absolute inset-0 rounded-full"
+        style={{ background: 'linear-gradient(160deg, rgba(255,255,255,0.4) 0%, transparent 55%)' }}
+      />
+    </span>
   );
 }
 

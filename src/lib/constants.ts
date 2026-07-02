@@ -9,11 +9,15 @@ export const RETURN_DAYS = 14;
 export const DEFAULT_DELIVERY = '3–5 werkdagen';
 
 export const FINISH_HEX: Record<string, string> = {
-  Chroom: 'linear-gradient(135deg, #e8e8e8 0%, #ffffff 40%, #c0c0c0 60%, #a8a8a8 100%)',
+  Chroom:
+    'linear-gradient(135deg, #c8c8c8 0%, #efefef 22%, #ffffff 38%, #eaeaea 50%, #c4c4c4 66%, #d8d8d8 100%)',
   Matzwart: '#1A1A1A',
-  'Gunmetal zwart': '#3D3D3D',
-  'Geborsteld goud': '#C9A96E',
-  'Rosé goud': '#B76E79',
+  'Gunmetal zwart':
+    'linear-gradient(135deg, #2a2a2a 0%, #484848 20%, #606060 36%, #525252 50%, #3e3e3e 66%, #2a2a2a 100%)',
+  'Geborsteld goud':
+    'linear-gradient(100deg, #7A5800 0%, #B8860B 12%, #D4A017 22%, #FFD700 32%, #EFCB44 40%, #D4A017 50%, #C9A020 60%, #FFD700 70%, #D4A017 80%, #B8860B 90%, #7A5800 100%)',
+  'Rosé goud':
+    'linear-gradient(135deg, #8C5048 0%, #C4847A 22%, #D8A09A 38%, #EDCAC4 52%, #D8A09A 64%, #C4847A 78%, #9E6860 100%)',
 };
 
 export const PRODUCT_TYPES = [

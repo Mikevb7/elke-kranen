@@ -22,16 +22,22 @@ function FinishSwatch({ finish, active, onClick }: { finish: string; active: boo
       onClick={onClick}
       title={finish}
       aria-pressed={active}
-      className={cn(
-        'relative h-7 w-7 rounded-full border-2 transition-all',
-        active ? 'border-[#1A1A1A] scale-110' : 'border-transparent ring-1 ring-[#E7E5E1] hover:scale-105'
-      )}
-      style={isGradient ? { background: hex } : { backgroundColor: hex ?? '#ccc' }}
+      className="relative flex h-12 w-12 items-center justify-center"
     >
+      <span
+        className={cn(
+          'relative block h-8 w-8 rounded-full border-2 transition-all overflow-hidden',
+          active ? 'border-[#1A1A1A] scale-110 shadow-md' : 'border-transparent ring-1 ring-[#E7E5E1]'
+        )}
+        style={isGradient ? { background: hex } : { backgroundColor: hex ?? '#ccc' }}
+      >
+        <span
+          className="pointer-events-none absolute inset-0 rounded-full"
+          style={{ background: 'linear-gradient(160deg, rgba(255,255,255,0.32) 0%, transparent 55%)' }}
+        />
+      </span>
       {active && (
-        <span className="absolute -right-0.5 -top-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-[#1A1A1A]">
-          <span className="h-1 w-1 rounded-full bg-white" />
-        </span>
+        <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#1A1A1A] ring-offset-1" />
       )}
     </button>
   );
@@ -56,16 +62,15 @@ function CheckboxFilter({
   onChange: () => void;
 }) {
   return (
-    <label className="flex cursor-pointer items-center gap-2.5 py-1">
+    <label className="flex min-h-[48px] cursor-pointer items-center gap-3 py-1" onClick={onChange}>
       <span
         className={cn(
-          'flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors',
+          'flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors',
           checked ? 'border-[#1A1A1A] bg-[#1A1A1A]' : 'border-[#E7E5E1]'
         )}
-        onClick={onChange}
       >
         {checked && (
-          <svg viewBox="0 0 10 8" className="h-2.5 w-2.5 text-white" fill="none" stroke="currentColor" strokeWidth={2}>
+          <svg viewBox="0 0 10 8" className="h-3 w-3 text-white" fill="none" stroke="currentColor" strokeWidth={2}>
             <path d="M1 4l3 3 5-6" />
           </svg>
         )}
@@ -212,9 +217,9 @@ export function FilterableProductBrowser({ products }: FilterableProductBrowserP
             {/* Mobile filter btn */}
             <button
               onClick={() => setMobileFilterOpen(true)}
-              className="flex items-center gap-1.5 rounded-lg border border-[#E7E5E1] px-3 py-2 text-xs font-medium text-[#1A1A1A] lg:hidden"
+              className="flex min-h-[44px] items-center gap-2 rounded-lg border border-[#E7E5E1] px-4 text-sm font-medium text-[#1A1A1A] lg:hidden"
             >
-              <SlidersHorizontal size={14} />
+              <SlidersHorizontal size={15} />
               Filters{activeCount > 0 ? ` (${activeCount})` : ''}
             </button>
           </div>
@@ -238,12 +243,12 @@ export function FilterableProductBrowser({ products }: FilterableProductBrowserP
               </button>
             </div>
             <FilterPanel />
-            <div className="mt-6">
+            <div className="mt-6" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-full rounded-xl bg-[#1A1A1A] py-3 text-sm font-semibold text-white"
+                className="w-full rounded-xl bg-[#1A1A1A] py-4 text-sm font-semibold text-white min-h-[52px]"
               >
-                Toon {filtered.length} producten
+                Toon {filtered.length} product{filtered.length !== 1 ? 'en' : ''}
               </button>
             </div>
           </div>

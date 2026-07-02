@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ShoppingBag, Check } from 'lucide-react';
 import { useCart } from '@/components/cart/CartProvider';
 import { Button } from '@/components/ui/Button';
+import { formatPrice } from '@/lib/utils';
 import type { Variant } from '@/lib/shopify/types';
 import { cn } from '@/lib/utils';
 
@@ -29,13 +30,13 @@ export function AddToCart({ variant }: AddToCartProps) {
   if (variant && purchasable) label = added ? 'Toegevoegd!' : 'In winkelwagen';
 
   return (
-    <div className="space-y-3">
-      {/* Desktop */}
+    <>
+      {/* Desktop knop (verborgen op mobiel) */}
       <Button
         onClick={handleAdd}
         disabled={!purchasable || loading}
         className={cn(
-          'w-full transition-all duration-300',
+          'hidden w-full transition-all duration-300 sm:flex',
           added && 'bg-green-700 hover:bg-green-700'
         )}
         size="lg"
@@ -44,21 +45,37 @@ export function AddToCart({ variant }: AddToCartProps) {
         {label}
       </Button>
 
-      {/* Sticky mobile bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-[#E7E5E1] bg-white px-4 pb-safe pt-3 sm:hidden">
-        <Button
-          onClick={handleAdd}
-          disabled={!purchasable || loading}
-          className={cn(
-            'w-full transition-all duration-300',
-            added && 'bg-green-700 hover:bg-green-700'
+      {/* Sticky mobiele balk */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-30 sm:hidden"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      >
+        <div className="flex items-center gap-3 border-t border-[#E7E5E1] bg-white px-4 pt-3 pb-4">
+          {/* Prijs links */}
+          {variant?.price && (
+            <div className="shrink-0">
+              <p className="text-[11px] text-[#5A5A5A] leading-none mb-0.5">Prijs</p>
+              <p className="text-base font-bold text-[#1A1A1A] leading-none tabular-nums">
+                {formatPrice(variant.price.amount, variant.price.currencyCode)}
+              </p>
+            </div>
           )}
-          size="lg"
-        >
-          {added ? <Check size={18} /> : <ShoppingBag size={18} />}
-          {label}
-        </Button>
+
+          {/* Knop rechts */}
+          <Button
+            onClick={handleAdd}
+            disabled={!purchasable || loading}
+            className={cn(
+              'flex-1 min-h-[52px] transition-all duration-300',
+              added && 'bg-green-700 hover:bg-green-700'
+            )}
+            size="lg"
+          >
+            {added ? <Check size={18} /> : <ShoppingBag size={18} />}
+            {label}
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

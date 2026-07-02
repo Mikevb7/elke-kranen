@@ -12,7 +12,6 @@ interface VariantSwatchesProps {
 
 export function VariantSwatches({ variants, selectedVariantId, onSelect }: VariantSwatchesProps) {
   const finishVariants = variants.filter((v) => v.finish);
-
   if (finishVariants.length === 0) return null;
 
   return (
@@ -31,6 +30,7 @@ export function VariantSwatches({ variants, selectedVariantId, onSelect }: Varia
           const purchasable = variant.isPurchasable;
 
           return (
+            /* 48px touch target wrapper */
             <button
               key={variant.id}
               onClick={() => purchasable && onSelect(variant)}
@@ -39,27 +39,46 @@ export function VariantSwatches({ variants, selectedVariantId, onSelect }: Varia
               aria-pressed={isSelected}
               disabled={!purchasable}
               className={cn(
-                'relative h-9 w-9 rounded-full border-2 transition-all duration-200',
-                isSelected
-                  ? 'border-[#1A1A1A] scale-110 shadow-md'
-                  : 'border-transparent ring-1 ring-[#E7E5E1] hover:scale-105 hover:ring-[#1A1A1A]',
+                'relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-200',
+                isSelected ? 'scale-110' : '',
                 !purchasable && 'opacity-40 cursor-not-allowed'
               )}
-              style={isGradient ? { background: hex } : { backgroundColor: hex ?? '#ccc' }}
             >
-              {!purchasable && (
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <span
-                    className="block h-px w-[140%] -rotate-45 bg-white/60"
-                    style={{ transformOrigin: 'center' }}
-                  />
-                </span>
+              {/* Swatch circle */}
+              <span
+                className={cn(
+                  'relative block h-9 w-9 rounded-full border-2 shadow-sm transition-all duration-200',
+                  isSelected
+                    ? 'border-[#1A1A1A] shadow-md'
+                    : 'border-transparent ring-1 ring-[#E7E5E1]'
+                )}
+                style={isGradient ? { background: hex } : { backgroundColor: hex ?? '#ccc' }}
+              >
+                {/* Gloss */}
+                <span
+                  className="pointer-events-none absolute inset-0 rounded-full"
+                  style={{
+                    background:
+                      'linear-gradient(160deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.06) 45%, transparent 65%)',
+                  }}
+                />
+                {/* Doorgestreept bij niet-koopbaar */}
+                {!purchasable && (
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="block h-px w-[140%] -rotate-45 bg-white/60" style={{ transformOrigin: 'center' }} />
+                  </span>
+                )}
+              </span>
+
+              {/* Actief-ring */}
+              {isSelected && (
+                <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#1A1A1A] ring-offset-2" />
               )}
             </button>
           );
         })}
       </div>
-      <p className="mt-2 text-xs text-[#5A5A5A]">{finishVariants.length} afwerkingen beschikbaar</p>
+      <p className="mt-1 text-xs text-[#5A5A5A]">{finishVariants.length} afwerkingen beschikbaar</p>
     </div>
   );
 }

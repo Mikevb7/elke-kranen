@@ -27,19 +27,20 @@ export function TypeTiles() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           {PRODUCT_TYPES.map((type, i) => (
             <Link
               key={type.slug}
               href={`/kranen/${type.slug}`}
-              className="group relative overflow-hidden rounded-2xl aspect-[3/4] bg-[#F6F5F3]"
+              className="group relative overflow-hidden rounded-2xl bg-[#F6F5F3]"
+              style={{ minHeight: '220px' }}
             >
               {/* Photo */}
               <Image
                 src={TYPE_IMAGES[type.slug]}
                 alt={type.label}
                 fill
-                sizes="(max-width: 640px) 50vw, 25vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
@@ -47,15 +48,15 @@ export function TypeTiles() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
               {/* Text */}
-              <div className="absolute inset-0 flex flex-col justify-end p-5">
+              <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-6">
                 <span className="mb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C9A96E]">
                   0{i + 1}
                 </span>
-                <h3 className="font-display text-base font-bold text-white leading-snug">
+                <h3 className="font-display text-lg font-bold text-white leading-snug sm:text-base">
                   {type.label}
                 </h3>
-                <span className="mt-2 flex items-center gap-1 text-xs text-white/60 group-hover:text-[#C9A96E] transition-colors">
-                  Bekijken <ArrowRight size={11} />
+                <span className="mt-2 flex items-center gap-1 text-sm text-white/60 group-hover:text-[#C9A96E] transition-colors sm:text-xs">
+                  Bekijken <ArrowRight size={13} />
                 </span>
               </div>
             </Link>

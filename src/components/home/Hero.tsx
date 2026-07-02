@@ -24,29 +24,33 @@ export function Hero() {
       {/* Gold accent line */}
       <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-transparent via-[#C9A96E] to-transparent opacity-60" />
 
-      <div className="relative mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8 py-24">
+      <div className="relative mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
         <div className="max-w-2xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#C9A96E]">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#C9A96E] sm:text-xs">
             MONZA · TIVOLI
           </p>
-          <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="text-[2.75rem] font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
             Kranen die<br />
             <span className="text-[#C9A96E]">spreken voor</span><br />
             zich.
           </h1>
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-white/70 sm:text-lg">
+          <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/70 sm:text-base sm:mt-6 lg:text-lg">
             Premium badkamerkranen in tijdloze afwerkingen. Ontworpen om te duren,
             gemaakt om op te vallen.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link href="/kranen">
-              <Button size="lg" variant="secondary" className="gap-2">
+          {/* CTA: gestapeld + vol-breed op mobiel, naast elkaar op desktop */}
+          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
+            <Link href="/kranen" className="sm:flex-none">
+              <Button size="lg" variant="secondary" className="w-full gap-2 sm:w-auto">
                 Ontdek het assortiment
                 <ArrowRight size={16} />
               </Button>
             </Link>
-            <Link href="/collecties">
-              <Button size="lg" className="border border-white/30 bg-white/10 text-white hover:bg-white/20">
+            <Link href="/collecties" className="sm:flex-none">
+              <Button
+                size="lg"
+                className="w-full border border-white/30 bg-white/10 text-white hover:bg-white/20 sm:w-auto"
+              >
                 Bekijk collecties
               </Button>
             </Link>
